@@ -9,7 +9,7 @@ docker build -t=tristann9/docker-nomachine-desktop .
 ```
 # Docker pull command
 ```
-docker pull tristann9/docker-nomachine-desktop
+docker pull mirekphd/docker-nomachine-desktop
 ```
 
 # Enviroment
