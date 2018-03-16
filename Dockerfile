@@ -10,7 +10,7 @@ RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
 # install useful apps
-RUN apt-get install -y nano htop vim xterm terminix ssh openssh-server curl wget git
+RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git
 # install Open JDK 8 and 9
 RUN apt-get install -y openjdk-8-jdk openjdk-9-jdk 
 
