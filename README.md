@@ -3,9 +3,9 @@ A proof-of-concept for setting up a Desktop (Lubuntu - LXDE) on Docker to SSH or
 
 # Build
 ```
-git clone https://github.com/tristann9/docker-nomachine-desktop.git
+git clone https://github.com/mirekphd/docker-nomachine-desktop.git
 cd docker-nomachine-desktop
-docker build -t=tristann9/docker-nomachine-desktop .
+docker build -t=mirekphd/docker-nomachine-desktop .
 ```
 # Docker pull command
 ```
