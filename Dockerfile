@@ -14,7 +14,7 @@ RUN apt-get install -y openjdk-8-jdk openjdk-9-jdk
 
 RUN add-apt-repository universe
 #RUN add-apt-repository ppa:ubuntubudgie/backports
-RUN add-apt-repository ppa:webupd8team/tor-browser
+# RUN add-apt-repository ppa:webupd8team/tor-browser
 RUN apt-get update -y
 
 RUN apt-get install -y locales
