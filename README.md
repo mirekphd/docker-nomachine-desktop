@@ -19,7 +19,7 @@ PASSWORD -> User password
 
 # Usage
 ```
-docker run -d -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE docker-nomachine-desktop
+docker run -d -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
 ```
 
 # Connect
