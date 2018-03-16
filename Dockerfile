@@ -30,7 +30,7 @@ RUN apt-get install -y lubuntu-desktop lubuntu-restricted-addons lubuntu-restric
 #RUN apt-get install -y ubuntu-budgie-desktop budgie-indicator-applet
 
 #RUN apt-get install -y pulseaudio cups libgconf2-4 iputils-ping libnss3 libxss1 xdg-utils libpango1.0-0 fonts-liberation
-RUN apt-get install -y tor firefox libreoffice tor-browser chromium-browser
+RUN apt-get install -y firefox libreoffice chromium-browser
 
 #Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
