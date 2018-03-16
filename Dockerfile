@@ -9,7 +9,9 @@ EXPOSE 22 4000
 RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --purge-unused -y && aptitude clean
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
+# install useful apps
 RUN apt-get install -y nano htop vim xterm terminix ssh openssh-server curl wget git
+# install Open JDK 8 and 9
 RUN apt-get install -y openjdk-8-jdk openjdk-9-jdk 
 
 RUN add-apt-repository universe
@@ -41,11 +43,14 @@ RUN apt-get update -y && apt-get install -y google-chrome-stable
 #RUN apt-get -y install sssd realmd krb5-user samba-common
 
 # Goto https://www.nomachine.com/download/download&id=10 and change for the latest NOMACHINE_PACKAGE_NAME and MD5 shown in that link to get the latest version.
-ENV NOMACHINE_PACKAGE_NAME nomachine_5.3.12_10_amd64.deb
-ENV NOMACHINE_MD5 78f25ceb145b1e6972bb6ad2c69bf689
+# ENV NOMACHINE_PACKAGE_NAME nomachine_5.3.12_10_amd64.deb
+# ENV NOMACHINE_MD5 78f25ceb145b1e6972bb6ad2c69bf689
+ENV NOMACHINE_PACKAGE_NAME nomachine_6.0.78_1_amd64.deb
+ENV NOMACHINE_BUILD 6.0
+ENV NOMACHINE_MD5 3645673090788ea0b2a3f664bb71a7dd
 
 # Install nomachine, change password and username to whatever you want here
-RUN curl -fSL "http://download.nomachine.com/download/5.3/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
+RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
 
