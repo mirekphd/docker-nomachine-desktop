@@ -2,7 +2,8 @@ FROM ubuntu:rolling
 MAINTAINER Tristan Everitt
 
 ENV DEBIAN_FRONTEND=noninteractive
-EXPOSE 22 4000
+# EXPOSE 22 4000
+EXPOSE 23 4001
 
 
 
