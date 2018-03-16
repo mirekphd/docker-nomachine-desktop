@@ -35,13 +35,11 @@ Download and Install NoMachine client: https://www.nomachine.com/download
 Host/IP: Container Host
 
 Port: 4001
-
 User: test
-
 Password: test
 
 ## Directly via Docker
 ```
-docker exec -it desktop bash
+docker exec -it docker-nomachine-desktop bash
 ```
 
