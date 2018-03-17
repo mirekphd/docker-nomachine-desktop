@@ -24,10 +24,11 @@ docker run -d -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=
 # Connecting to the container
 
 ## SSH (CLI tools only)
-IP: localhost
+IP: container IP (see next section)
 Port: 23
-User: test
-Password: test
+User: test 
+Password: test 
+(note that all except the IP can be changed in the Dockerfile)
 Example:
 ```
 ssh test@localhost -p 23	
@@ -38,24 +39,34 @@ ssh test@localhost -p 23
 docker exec -it docker-nomachine-desktop bash
 ```
 
-## NoMachine (all tools)
+## NoMachine (all tools: CLI and graphical)
 
-Download and Install a NoMachine client (server-side or PC): https://www.nomachine.com/download
+Download and Install a NoMachine client (for the remote server running Docker engine or for the local PC): 
+https://www.nomachine.com/download
 
-IP: container IP
+IP: container IP (see next section)
 Port: 4001
 User: test
 Password: test
+(note that all except the IP can be changed in the Dockerfile)
 
 # Finding out IPs (by listening ports)
 ## Docker containers
 - only running ones ("Up"):
+```
 docker ps
+```
 - latest one (including stopped):
+```
 docker ps -l
-- all (including stopped)
+```
+- all (including stopped):
+```
 docker ps -a 
-## all system-wide ports
+```
+## All system-wide listening ports
+```
 netstat --listen
+```
 
 
