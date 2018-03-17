@@ -1,8 +1,8 @@
 # Description
-A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine) but with 3 sets of code editors for Python 3 and R: 
-- the archaic command-line tools accessible via SSH (such as python/iPython, R), 
-- new and shiny editors with web servers (Jupyter Notebook Server, RStudio Server (free), and H2O Flow),
-- classic, battle-tested GUI-based IDEs (Spyder and RStudio).
+A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine) with 3 sets of code editors for Python 3 and R: 
+- the archaic command-line tools (such as python3 / ipython, R), accessible via SSH clients or docker exec command,
+- new and shiny code editors with web servers (Jupyter Notebook Server, RStudio Server (free), and H2O Flow), accessible via a web browser from outside the container,
+- classic, battle-tested GUI-based IDEs (Spyder and RStudio), designed for local use, but still accessible despite contenerization by connecting to a desktop server (NoMachine's NX protocol, superior to VNC) running inside the container.
 
 # Building and tagging the docker image
 ```
