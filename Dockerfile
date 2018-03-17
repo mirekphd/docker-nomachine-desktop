@@ -1,5 +1,5 @@
 FROM ubuntu:rolling
-MAINTAINER Tristan Everitt
+MAINTAINER Mirek
 
 ENV DEBIAN_FRONTEND=noninteractive
 # EXPOSE 22 4000
