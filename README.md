@@ -49,7 +49,7 @@ docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASS
 # Connecting to the container
 
 ## SSH / MobaXterm (command-line tools only)
-- IP: container IP (see next section)
+- IP: localhost
 - port: 23 (as defined by EXPOSE in the Dockerfile)
 - user: test 
 - password: test 
@@ -67,10 +67,10 @@ docker exec -it docker-nomachine-desktop bash
 ## NoMachine (all tools: command-line and GUI)
 
 ### client installation
-[Download NoMachine client](https://www.nomachine.com/download) and install it on the statistical server running Docker machine and/or on the local machine (thin client) 
+[Download NoMachine client](https://www.nomachine.com/download) and install it on the statistical server running Docker machine
 
 ### connection details
-- IP: container IP (see next section)
+- IP: localhost
 - port: 4001 (as defined by EXPOSE in the Dockerfile)
 - user: test
 - password: test
