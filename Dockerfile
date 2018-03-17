@@ -1,4 +1,5 @@
-FROM ubuntu:rolling
+# FROM ubuntu:rolling
+FROM ubuntu:16.04
 MAINTAINER Mirek
 
 ENV DEBIAN_FRONTEND=noninteractive
