@@ -14,7 +14,7 @@ RUN apt-get install -y software-properties-common python-software-properties pyt
 # install useful apps
 RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git mc
 # install Open JDK 8 and 9
-RUN apt-get install -y openjdk-8-jdk openjdk-9-jdk 
+RUN apt-get install -y openjdk-8-jdk # openjdk-9-jdk 
 
 RUN add-apt-repository universe
 #RUN add-apt-repository ppa:ubuntubudgie/backports
