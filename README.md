@@ -12,7 +12,7 @@ docker build --tag=mirekphd/docker-nomachine-desktop .
 ```
 
 # Pushing the image to the Docker Hub
-- if you have linked Git Hub with the Docker Hub, than create an automated build in the Docker Hub for this Docker image (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), so that simply building and tagging the image in your local Git repo (using _docker build_ as above) will automatically push the image to the Docker Hub,
+- if you have linked Git Hub with the Docker Hub, than create an automated build in the Docker Hub for this Docker image (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), so that simply changing the image build code in the Dockerfile will automatically build and push the image to the Docker Hub,
 - otherwise use _docker push_ like this:
 ```
 # (tag only if tagging not yet done with "build --tag":)
@@ -57,8 +57,8 @@ docker exec -it docker-nomachine-desktop bash
 
 ## NoMachine (all tools: command-line and GUI)
 
-Download and Install a NoMachine client (for the remote server running Docker engine or for the local PC): 
-https://www.nomachine.com/download
+[Download and Install](https://www.nomachine.com/download) a NoMachine client (for the remote server running Docker engine or for the local PC): 
+
 
 - IP: container IP (see next section)
 - port: 4001
