@@ -8,17 +8,16 @@ A large collection of data science libraries from Kaggle Kernels to perform serv
 ```
 git clone https://github.com/mirekphd/docker-nomachine-desktop.git
 cd docker-nomachine-desktop
-docker login
 docker build --tag=mirekphd/docker-nomachine-desktop .
 ```
 
 # Pushing the image to the Docker Hub
-- if you have linked Git Hub with the Docker Hub (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), than building of the Docker image in your local Git repo (using _docker build_ above) will have automatically pushed the image to Docker Hub.
+- if you have linked Git Hub with the Docker Hub, than create an automated build in the Docker Hub for this Docker image (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), so that simply building and tagging the image in your local Git repo (using _docker build_ as above) will automatically push the image to the Docker Hub,
 - otherwise use _docker push_ like this:
 ```
-docker login
 # (tag only if tagging not yet done with "build --tag":)
 # docker tag <your_image_id_SHA256_hash> mirephd/docker-nomachine-desktop
+docker login
 docker push mirekphd/docker-nomachine-desktop
 ```
 
