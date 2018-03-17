@@ -24,12 +24,12 @@ docker run -d -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=
 # Connecting to the container
 
 ## SSH (CLI tools only)
-IP: container IP (see next section)
-Port: 23
-User: test 
-Password: test 
-(note that all except the IP can be changed in the Dockerfile)
-Example:
+- IP: container IP (see next section)
+- Port: 23
+- User: test 
+- Password: test 
+- (note that all connection details except the IP can be changed in the Dockerfile and pushed to your own Docker Hub)
+### Example:
 ```
 ssh test@localhost -p 23	
 ```
@@ -48,7 +48,7 @@ https://www.nomachine.com/download
 - Port: 4001
 - User: test
 - Password: test
-- (note that all except the IP can be changed in the Dockerfile)
+- (note that all connection details except the IP can be changed in the Dockerfile and pushed to your own Docker Hub)
 
 # Finding out IPs (by listening ports)
 ## Docker containers
