@@ -1,18 +1,12 @@
 # Description
-A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine) with 3 sets of code editors for Python 3 and R: 
+A collection of typical data science libraries to perform server-side data analysis and model training with a graphical Desktop (Lubuntu/LXDE + NoMachine) with 3 sets of code editors for Python 3 and R: 
 - the archaic command-line tools (such as python3 / ipython, R), accessible via SSH clients or docker exec command,
 - new and shiny code editors with web servers (Jupyter Notebook Server, RStudio Server (free), and H2O Flow), accessible via a web browser from outside the container,
 - classic, battle-tested GUI-based IDEs (Spyder and RStudio), designed for local use, but still accessible despite contenerization by connecting to a desktop server (NoMachine's NX protocol, superior to VNC) running inside the container.
 
-# Building and tagging the docker image
-```
-git clone https://github.com/mirekphd/docker-nomachine-desktop.git
-cd docker-nomachine-desktop
-docker build --tag=mirekphd/docker-nomachine-desktop .
-```
+# Automated builds in the Docker Hub
 
-# Pushing the image to the Docker Hub
-- if you have linked Git Hub with the Docker Hub, than create an automated build in the Docker Hub for this Docker image (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), so that simply changing the image build code in the Dockerfile will automatically build and push the image to the Docker Hub,
+- if you have linked GitHub with the Docker Hub, than create an automated build in the Docker Hub for this Docker image (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), so that simply changing the image build code in the Dockerfile will automatically build and push the image to the Docker Hub,
 - otherwise use _docker push_ like this:
 ```
 # (tag only if tagging not yet done with "build --tag":)
@@ -21,6 +15,13 @@ docker login
 docker push mirekphd/docker-nomachine-desktop
 ```
 
+# Building and tagging the docker image locally
+- if you don't have automated builds configured in Docker Hub, you need to clone the GitHub repo and build the image locally:
+```
+git clone https://github.com/mirekphd/docker-nomachine-desktop.git
+cd docker-nomachine-desktop
+docker build --tag=mirekphd/docker-nomachine-desktop .
+```
 
 # Pulling the image from the Docker Hub
 - on your deployment server execute _docker pull:_
@@ -39,7 +40,7 @@ docker run -d -p 4001 -p 23 --name docker-nomachine-desktop -e PASSWORD=test -e 
 
 # Connecting to the container
 
-## SSH (command-line tools only)
+## SSH / MobaXterm (command-line tools only)
 - IP: container IP (see next section)
 - port: 23
 - user: test 
@@ -57,9 +58,10 @@ docker exec -it docker-nomachine-desktop bash
 
 ## NoMachine (all tools: command-line and GUI)
 
-[Download and Install](https://www.nomachine.com/download) a NoMachine client (for the remote server running Docker engine or for the local PC): 
+### client installation
+ [Download NoMachine client](https://www.nomachine.com/download) and install it on the statistical server running Docker machine and/or on the local machine (thin client) 
 
-
+### connection details
 - IP: container IP (see next section)
 - port: 4001
 - user: test
