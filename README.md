@@ -31,30 +31,30 @@ docker push mirekphd/docker-nomachine-desktop
 docker pull mirekphd/docker-nomachine-desktop
 ```
 
-# Enviroment
-- USER -> SSH/NX Login user
-- PASSWORD -> User password
+# Defining servers login data using Docker environment variables
+- USER: the SSH/NoMachine user login
+- PASSWORD: the SSH/NoMachine password
 
 # Creating a new image container and executing the container
 ```
 docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=sys_nice mirekphd/docker-nomachine-desktop
 ```
-## used run options explanied
+## Used docker run options
 - the -d option will run the container in the background (returning control to the shell at the cost of hiding errors messages displayed inside the container)
 - the -rm option will remove the docker image to release memory without trace after the container is stopped (caution: potential data loss of all data stored inside the container)
 - the -p option sets up port forwarding: contenerized SSH and NX servers use their standard ports, but non-standard ports are exposed outside the contained (here incremented by one); these exposed ports were defined in the Dockerfile
 - the -e option defines environmental variables PASSWORD and USER
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
 
-# Connecting to the container
+# Connecting to the container (from the server ssh or NoMachine client)
 
 ## SSH / MobaXterm (command-line tools only)
 - IP: localhost
 - port: 23 (as defined by EXPOSE in the Dockerfile)
 - user: test 
 - password: test 
-- (note that all connection details except the IP can be changed in the Dockerfile and pushed to your own Docker Hub)
-- example:
+- (note that all connection details except the IP can be changed in the Dockerfile)
+- example connection:
 ```
 ssh test@localhost -p 23	
 ```
@@ -74,7 +74,8 @@ docker exec -it docker-nomachine-desktop bash
 - port: 4001 (as defined by EXPOSE in the Dockerfile)
 - user: test
 - password: test
-- (note that all connection details except the IP can be changed in the Dockerfile and pushed to your own Docker Hub)
+- protocol: NX
+- (note that all connection details except the IP can be changed in the Dockerfile)
 
 
 
