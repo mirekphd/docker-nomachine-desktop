@@ -1,5 +1,5 @@
-# docker-nomachine-desktop
-A proof-of-concept for setting up a Desktop (Lubuntu - LXDE) on Docker to SSH or NX into the machine. Concept breaks away from micro-services.
+# Dockerized NoMachine desktop for statistical computing in R and Python 3 using browser-based tools and classic IDE's
+A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine/NX server) but with all available free software for Python 3 and R: using not only terminal/CLI apps accessible via SSH (python/iPython, R) or browser-based apps (Jupyter Notebook Server, RStudio Server Free) but also classic "local" IDEs (Spyder, RStudio).
 
 # Build
 ```
