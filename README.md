@@ -16,9 +16,9 @@ docker pull mirekphd/docker-nomachine-desktop
 - USER -> SSH/NX Login user
 - PASSWORD -> User password
 
-# Starting docker image
+# Creating a new image container and executing the container
 ```
-docker run -d -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
+docker run -d -p 4001 -p 23 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
 ```
 
 # Connecting to the container
