@@ -13,8 +13,8 @@ docker pull mirekphd/docker-nomachine-desktop
 ```
 
 # Enviroment
-USER -> SSH/NX Login user
-PASSWORD -> User password
+- USER -> SSH/NX Login user
+- PASSWORD -> User password
 
 # Starting docker image
 ```
@@ -44,11 +44,11 @@ docker exec -it docker-nomachine-desktop bash
 Download and Install a NoMachine client (for the remote server running Docker engine or for the local PC): 
 https://www.nomachine.com/download
 
-IP: container IP (see next section)
-Port: 4001
-User: test
-Password: test
-(note that all except the IP can be changed in the Dockerfile)
+- IP: container IP (see next section)
+- Port: 4001
+- User: test
+- Password: test
+- (note that all except the IP can be changed in the Dockerfile)
 
 # Finding out IPs (by listening ports)
 ## Docker containers
