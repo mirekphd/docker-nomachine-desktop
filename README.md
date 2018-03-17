@@ -1,5 +1,6 @@
 # Description
-A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine/NX server) but with all available free software for Python 3 and R: using not only terminal/CLI apps accessible via SSH (python/iPython, R) or browser-based apps (Jupyter Notebook Server, RStudio Server Free) but also classic "local" IDEs (Spyder, RStudio).
+A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine/NX server) but with all available free software for Python 3 and R: using not only command-line
+apps accessible via SSH (python/iPython, R) or browser-based apps (Jupyter Notebook Server, RStudio Server Free) but also classic "local" IDEs (Spyder, RStudio).
 
 # Building the docker image
 ```
@@ -36,7 +37,7 @@ docker run -d -p 4001 -p 23 --name docker-nomachine-desktop -e PASSWORD=test -e 
 
 # Connecting to the container
 
-## SSH (CLI tools only)
+## SSH (command-line tools only)
 - IP: container IP (see next section)
 - Port: 23
 - User: test 
@@ -47,12 +48,12 @@ docker run -d -p 4001 -p 23 --name docker-nomachine-desktop -e PASSWORD=test -e 
 ssh test@localhost -p 23	
 ```
 
-## Directly via docker exec command (CLI tools only)
+## Directly via docker exec command (command-line tools only)
 ```
 docker exec -it docker-nomachine-desktop bash
 ```
 
-## NoMachine (all tools: CLI and graphical)
+## NoMachine (all tools: command-line and GUI)
 
 Download and Install a NoMachine client (for the remote server running Docker engine or for the local PC): 
 https://www.nomachine.com/download
