@@ -1,13 +1,26 @@
 # Description
 A large collection of data science libraries from Kaggle Kernels to perform server-side modeling with a graphical Desktop (Lubuntu/LXDE + NoMachine/NX server) but with all available free software for Python 3 and R: using not only terminal/CLI apps accessible via SSH (python/iPython, R) or browser-based apps (Jupyter Notebook Server, RStudio Server Free) but also classic "local" IDEs (Spyder, RStudio).
 
-# Building docker image
+# Building the docker image
 ```
 git clone https://github.com/mirekphd/docker-nomachine-desktop.git
 cd docker-nomachine-desktop
+docker login
 docker build -t=mirekphd/docker-nomachine-desktop .
 ```
-# Docker pull command
+
+# Pushing the image to the Docker Hub
+- if you have linked Git Hub with the Docker Hub (see [automated builds on Docker Hub](https://docs.docker.com/docker-hub/builds/)), than building of the Docker image in your local Git repo (using _docker build_ above) will have automatically pushed the image to Docker Hub.
+- otherwise use _docker push_ like this:
+```
+docker login
+docker tag <your_image_id_SHA256_hash> mirephd/docker-nomachine-desktop
+docker push mirekphd/docker-nomachine-desktop
+```
+
+
+# Pulling the image from the Docker Hub
+- on your deployment server execute _docker pull:_
 ```
 docker pull mirekphd/docker-nomachine-desktop
 ```
