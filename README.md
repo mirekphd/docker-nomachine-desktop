@@ -47,5 +47,15 @@ Port: 4001
 User: test
 Password: test
 
+# Finding out IPs (by listening ports)
+## Docker containers
+- only running ones ("Up"):
+docker ps
+- latest one (including stopped):
+docker ps -l
+- all (including stopped)
+docker ps -a 
+## all system-wide ports
+netstat --listen
 
 
