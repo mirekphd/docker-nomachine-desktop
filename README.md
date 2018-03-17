@@ -39,10 +39,10 @@ docker pull mirekphd/docker-nomachine-desktop
 - the -rm option will remove the docker image to release memory without trace after the container is stopped (caution: potential data loss of all data stored inside the container)
 - port forwarding is set up with -p option: contenerized servers use their standard ports, but non-standard ports are exposed outside the contained (here incremented by one); these exposed ports were defined in the Dockerfile
 - environmental variables PASSWORD and USER are defined using the -e option
-- additional priviledges can be added to the container and its quotas can be managed using the --cap-add option (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources] (https://docs.docker.com/config/containers/resource_constraints/) for details
+- additional priviledges can be added to the container and its quotas can be managed using the --cap-add option (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
 
 ```
-docker run -d -p 4000:4001 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=sys_nice
+docker run -rm -p 4000:4001 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=sys_nice
 ```
 
 # Connecting to the container
