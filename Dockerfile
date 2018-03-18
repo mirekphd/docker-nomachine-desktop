@@ -63,7 +63,7 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 # - for Python
 
 # install Spyder3 (latest version, not the old one bundled in with Lubuntu) 
-RUN apt-get install python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  
+RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  
 RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN pip3 install spyder
