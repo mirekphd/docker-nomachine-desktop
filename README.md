@@ -34,7 +34,7 @@ docker pull mirekphd/docker-nomachine-desktop
 
 # Creating a new image container and executing the container
 ```
-docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=sys_nice mirekphd/docker-nomachine-desktop
+docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE --cap-add=sys_nice mirekphd/docker-nomachine-desktop
 ```
 ## Used docker run options
 - the -d option will run the container in the background (returning control to the shell at the cost of hiding errors messages displayed inside the container)
@@ -42,6 +42,7 @@ docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASS
 - the -p option sets up port forwarding: contenerized SSH and NX servers use their standard ports, but non-standard ports are exposed outside the contained (here incremented by one); these exposed ports were defined in the Dockerfile
 - the -e option defines environmental variables USER and PASSWORD (USER: the SSH/NoMachine user login, PASSWORD: the SSH/NoMachine password)
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
+- on Ubuntu 16.04 (and later), it is absolutely necessary to enable PTRACE capabilities required by NoMachine, because they are not provided by the default docker AppArmor profile - hence the --cap-add=SYS_PTRACE parameter (see [Build and Deploy NoMachine Desktops and Applications in Docker for Linux](https://www.nomachine.com/DT08M00100&dn=docker)
 
 # Defining login credentials using environment variables
 - the -e option of _docker run_ is used to define container's environmental variables USER and PASSWORD 
