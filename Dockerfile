@@ -63,9 +63,11 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 #    && apt-get autoremove \
 #    && rm -rf /var/lib/apt/lists/*
 
+# replace the default desktop used by NoMachine with the preferred (lightweight) desktop
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 
-
+# use environment variables USER and PASSWORD (passed by docker run -e) 
+# to create a priviledged user account, and set it up for use by SSH and NoMachine
 ADD nxserver.sh /
 
 ENTRYPOINT ["/nxserver.sh"]
