@@ -1,8 +1,9 @@
 # Description
-A collection of typical data science libraries to perform server-side data analysis and model training with a graphical Desktop (Lubuntu/LXDE + NoMachine) with 3 sets of code editors for Python 3 and R: 
-- the archaic command-line tools (such as python3 / ipython, R), accessible via SSH clients or docker exec command,
-- code editors with web servers (Jupyter Notebook Server, RStudio Server (free), and H2O Flow), accessible via a web browser from outside the container,
-- classic, battle-tested GUI-based IDEs (Spyder and RStudio), designed for local use, but still accessible despite contenerization by connecting to a desktop server (NoMachine's NX protocol, superior to VNC) running inside the container.
+A starter Python 3 and R environment for data science tasks performed on the server-side using a wide array of development tools for Python 3 and R: 
+- command-line tools (such as python3 / ipython, R), accessible via SSH clients or _docker exec_ command,
+- browser-based editors using web servers (Jupyter Notebook, RStudio Server (free), and H2O Flow), accessible via a web browser,
+- classic GUI-based IDEs (Spyder and RStudio), designed for local use and thus requiring a graphical Desktop (here: Lubuntu/LXDE - a lightweight alternative to the standard Unity desktop), accessible inside the container through a desktop server (here: the NoMachine server, based on NX, a protocol superior to VNC).
+
 
 # Automated builds in the Docker Hub
 
