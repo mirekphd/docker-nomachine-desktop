@@ -79,5 +79,21 @@ docker exec -it docker-nomachine-desktop bash
 - (note that all connection details except the IP can be changed in the Dockerfile)
 
 
+# Cleaning up after work
+
+- find out the names of all running containers:
+```
+docker ps
+```
+- stop the unwanted containers:
+```
+docker stop docker-nomachine-desktop
+```
+- remove all unwanted objects: containers, networks, images and optionally (_--volumes_) also volumes (caution: they may contain unsaved data):
+```
+docker system prune [--volumes]
+```
+
+
 
 
