@@ -12,7 +12,7 @@ RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
 # install useful apps
-RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git mc
+RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git mc 
 # install Open JDK 8 and 9
 RUN apt-get install -y openjdk-8-jdk # openjdk-9-jdk 
 
@@ -58,6 +58,19 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
 
+### data science IDEs
+
+# - for Python
+
+# install Spyder3 (latest version, not the old one bundled in with Lubuntu) 
+RUN apt-get install python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
+RUN pip3 install spyder
+
+
+
+
 # Cleanup 
 #RUN apt-get autoclean \
 #    && apt-get autoremove \
@@ -67,7 +80,8 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
-# to create a priviledged user account, and set it up for use by SSH and NoMachine
+# to create a priviledged user account, and set it up for use by SSH and NoMachine;
+# note that ADD is executed by the host, not the container (unlike RUN)
 ADD nxserver.sh /
 
 ENTRYPOINT ["/nxserver.sh"]
