@@ -22,11 +22,13 @@ RUN add-apt-repository universe
 RUN apt-get update -y
 
 RUN apt-get install -y locales
-RUN localedef -i en_IE -c -f UTF-8 -A /usr/share/locale/locale.alias en_IE.UTF-8
-ENV LANG en_IE.utf8
+# RUN localedef -i en_IE -c -f UTF-8 -A /usr/share/locale/locale.alias en_IE.UTF-8
+RUN localedef --force --inputfile=en_US --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias en_US.UTF-8
+# ENV LANG en_IE.utf8
+ENV LANG en_US.UTF-8
 #ENV LANG="en_IE.UTF-8"
-ENV LANGUAGE=en_IE
-
+# ENV LANGUAGE=en_IE
+ENV LANGUAGE=en_US
 
 #RUN apt-get install -y ubuntu-gnome-desktop
 #RUN apt-get install -y kubuntu-full kubuntu-restricted-addons kubuntu-restricted-extras
