@@ -38,10 +38,10 @@ RUN apt-get install -y lubuntu-desktop lubuntu-restricted-addons lubuntu-restric
 #RUN apt-get install -y pulseaudio cups libgconf2-4 iputils-ping libnss3 libxss1 xdg-utils libpango1.0-0 fonts-liberation
 # RUN apt-get install -y firefox libreoffice chromium-browser
 
-#Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-RUN apt-get update -y && apt-get install -y google-chrome-stable
+# Chrome is not needed - Lubuntu has Firefox
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+# RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+# RUN apt-get update -y && apt-get install -y google-chrome-stable
 
 #http://docs.aws.amazon.com/directoryservice/latest/admin-guide/join_linux_instance.html
 #RUN apt-get -y install sssd realmd krb5-user samba-common
