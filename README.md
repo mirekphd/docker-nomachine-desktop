@@ -32,10 +32,6 @@ docker push mirekphd/docker-nomachine-desktop
 docker pull mirekphd/docker-nomachine-desktop
 ```
 
-# Defining servers login data using Docker environment variables
-- USER: the SSH/NoMachine user login
-- PASSWORD: the SSH/NoMachine password
-
 # Creating a new image container and executing the container
 ```
 docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=sys_nice mirekphd/docker-nomachine-desktop
@@ -44,8 +40,14 @@ docker run -d --rm -p 4001:4000 -p 23:22 --name docker-nomachine-desktop -e PASS
 - the -d option will run the container in the background (returning control to the shell at the cost of hiding errors messages displayed inside the container)
 - the -rm option will remove the docker image and other objects to release memory after the container is stopped (caution: potential data loss of the data stored inside the container)
 - the -p option sets up port forwarding: contenerized SSH and NX servers use their standard ports, but non-standard ports are exposed outside the contained (here incremented by one); these exposed ports were defined in the Dockerfile
-- the -e option defines environmental variables PASSWORD and USER
+- the -e option defines environmental variables USER and PASSWORD (USER: the SSH/NoMachine user login, PASSWORD: the SSH/NoMachine password)
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
+
+# Defining login credentials using environment variables
+- the -e option of _docker run_ is used to define container's environmental variables USER and PASSWORD 
+- USER: the SSH/NoMachine user login
+- PASSWORD: the SSH/NoMachine password
+- these credentials are needed only to allow an already authorised server user to execute applications inside the Docker container, so passing password in clear text - as argument of _docker run_ (as described above) is acceptable
 
 # Connecting to the container (from the server ssh or NoMachine client)
 
