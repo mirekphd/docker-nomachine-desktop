@@ -49,9 +49,13 @@ RUN apt-get install -y lubuntu-desktop lubuntu-restricted-addons lubuntu-restric
 # Goto https://www.nomachine.com/download/download&id=10 and change for the latest NOMACHINE_PACKAGE_NAME and MD5 shown in that link to get the latest version.
 # ENV NOMACHINE_PACKAGE_NAME nomachine_5.3.12_10_amd64.deb
 # ENV NOMACHINE_MD5 78f25ceb145b1e6972bb6ad2c69bf689
-ENV NOMACHINE_PACKAGE_NAME nomachine_6.0.78_1_amd64.deb
-ENV NOMACHINE_BUILD 6.0
-ENV NOMACHINE_MD5 3645673090788ea0b2a3f664bb71a7dd
+# ENV NOMACHINE_PACKAGE_NAME nomachine_6.0.78_1_amd64.deb
+# ENV NOMACHINE_BUILD 6.0
+# ENV NOMACHINE_MD5 3645673090788ea0b2a3f664bb71a7dd
+ENV NOMACHINE_PACKAGE_NAME nomachine_6.2.4_1_amd64.deb
+ENV NOMACHINE_BUILD 6.2
+ENV NOMACHINE_MD5 210bc249ec9940721a1413392eee06fe
+
 
 # Install nomachine, change password and username to whatever you want here
 RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
