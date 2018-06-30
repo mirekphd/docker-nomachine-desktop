@@ -7,7 +7,7 @@
 # && chown -R $USER:$USER /home/$USER \
 # && echo $USER':'$PASSWORD | chpasswd
 
-sudo /etc/init.d/ssh restart
+# sudo /etc/init.d/ssh restart
 sudo /etc/NX/nxserver --startup
 tail -f /usr/NX/var/log/nxserver.log
 
