@@ -109,7 +109,7 @@ RUN python3 -mpip install xgboost
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 
 # add nx_user to sudoers file but only for (all) operations on the nxserver service
-RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver *" >> /etc/sudoers && \
+RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
   # add also nx_user to sudoers file but only for nxserver log monitoring
   echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail *" >> /etc/sudoers
 
