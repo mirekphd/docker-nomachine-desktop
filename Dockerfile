@@ -80,7 +80,6 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 ### Data science tools for Python
 
 # Spyder3 (latest version, not the old one bundled in with Lubuntu) 
-
 RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit && \
   pip3 install --upgrade pip && \
   pip install --upgrade setuptools && \
@@ -102,6 +101,24 @@ RUN pip install pandas matplotlib
 # make -j4
 RUN pip install xgboost
 
+
+
+### CRAN R 
+
+# ARG R_BASE_VER=3.4.4
+ARG R_BASE_VER=3.5.0
+
+# add to sources lists Michael Rutter's Launchpad repo with R-base 3.5 (RRutter v3.5)
+RUN echo "deb [trusted=yes] http://ppa.launchpad.net/marutter/rrutter3.5/ubuntu xenial main" > /etc/apt/sources.list.d/rrutter3.5_xenial.list
+
+# add Michael Rutters key
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+
+# Now install R-base[-dev] 3.5.0 from Michael Rutter's Launchpad repo
+RUN apt-get update && apt-get install -y \
+		r-base=${R_BASE_VER}-* \
+		r-base-dev=${R_BASE_VER}-* \
+		r-recommended=${R_BASE_VER}-*
 
 ### Data science tools for R
 
