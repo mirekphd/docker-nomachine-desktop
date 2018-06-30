@@ -81,14 +81,15 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 
 # Spyder3 (latest version, not the old one bundled in with Lubuntu) 
 
-RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  && \
+RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit && \
   pip3 install --upgrade pip && \
   pip install --upgrade setuptools && \
-  pip install spyder
+  pip install -y spyder
 
 # PyCharm CE
 RUN add-apt-repository ppa:mystic-mirage/pycharm && \ 
-  apt-get update && \ apt-get install pycharm-community
+  apt-get update && \ 
+  apt-get install -y pycharm-community
 
 # pandas, matplotlib
 RUN pip install pandas matplotlib
