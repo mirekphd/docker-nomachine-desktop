@@ -80,23 +80,24 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 ### Data science tools for Python
 
 # Spyder3 (latest version, not the old one bundled in with Lubuntu) 
-RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  
-RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade setuptools
-RUN pip3 install spyder
 
-# pandas
-RUN python3 -mpip install pandas
+RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  && \
+  pip install --upgrade pip && \
+  pip install --upgrade setuptools && \
+  pip install spyder
 
-# matplotlib
-RUN python3 -mpip install matplotlib
+# PyCharm CE
+RUN add-apt-repository ppa:mystic-mirage/pycharm && \ 
+  apt-get update && \ apt-get install pycharm-community
+
+# pandas, matplotlib
+RUN pip install pandas matplotlib
 
 # xgboost
 # git clone --recursive https://github.com/dmlc/xgboost
 # cd xgboost
 # make -j4
-RUN python3 -mpip install xgboost
-
+RUN pip install xgboost
 
 
 ### Data science tools for R
@@ -104,7 +105,6 @@ RUN python3 -mpip install xgboost
 # RStudio
 ENV RSTUDIO_VER=1.1.453
 
-RUN wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
 RUN wget --quiet -O /tmp/rstudio.deb https://download1.rstudio.org/rstudio-xenial-${RSTUDIO_VER}-amd64.deb && \
         chmod +x /tmp/rstudio.deb && \
         gdebi -n /tmp/rstudio.deb && \
