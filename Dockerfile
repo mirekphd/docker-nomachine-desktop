@@ -95,15 +95,15 @@ RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"'
 
 
 # set up user account
-ENV USER=nomachine
-ENV PASSWORD=nomachine
+ENV NX_USER=nomachine
+ENV NX_PASSWORD=nomachine
 
-RUN groupadd -r $USER -g 433 && \
-  useradd -u 431 -r -g $USER -d /home/$USER -s /bin/bash -c "$USER" $USER && \
-  adduser $USER sudo && \
-  mkdir /home/$USER && \
-  chown -R $USER:$USER /home/$USER && \
-  echo $USER':'$PASSWORD | chpasswd
+RUN groupadd -r $NX_USER -g 433 && \
+  useradd -u 431 -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
+  adduser $NX_USER sudo && \
+  mkdir /home/$NX_USER && \
+  chown -R $NX_USER:$NX_USER /home/$NX_USER && \
+  echo $NX_USER':'$NX_PASSWORD | chpasswd
 
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
