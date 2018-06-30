@@ -35,7 +35,7 @@ ENV LANGUAGE=en_US
 ENV NX_USER=nomachine
 ENV NX_PASSWORD=nomachine
 ENV NX_UID=1000
-ENV NX_GID=101
+ENV NX_GID=1000
 
 RUN groupadd -r $NX_USER -g $NX_GID && \
   useradd -u $NX_UID -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
