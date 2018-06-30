@@ -109,7 +109,7 @@ RUN python3 -mpip install xgboost
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 
 # add nx_user to sudoers file but only for (all) operations on the nxserver service
-RUN echo "${NX_USER} ALL=NOPASSWD: /etc/NX/nxserver" >> /etc/sudoers
+RUN echo "${NX_USER} ALL=NOPASSWD: /etc/NX/nxserver *" >> /etc/sudoers
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
 # to create a priviledged user account, and set it up for use by SSH and NoMachine;
