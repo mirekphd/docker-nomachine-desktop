@@ -113,12 +113,12 @@ RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver *" >> /etc/sudoers
   # add also nx_user to sudoers file but only for nxserver log monitoring
   echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail *" >> /etc/sudoers
 
-# add everyone ([o]ther) permissions to read and write nxserver logfile
-RUN chmod ugo+rwx /usr/NX/var/log/nxserver.log && \
-  # chmod -R ugo+rwx /usr/NX/ && \
-  # special treatment for server.lic file (which has to 
-  # have 0400 permissions or else nxserver will fail to start)
-  chmod 400 /usr/NX/etc/server.lic
+# # add everyone ([o]ther) permissions to read and write nxserver logfile
+# RUN chmod ugo+rwx /usr/NX/var/log/nxserver.log && \
+#   # chmod -R ugo+rwx /usr/NX/ && \
+#   # special treatment for server.lic file (which has to 
+#   # have 0400 permissions or else nxserver will fail to start)
+#   chmod 400 /usr/NX/etc/server.lic
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
 # to create a priviledged user account, and set it up for use by SSH and NoMachine;
