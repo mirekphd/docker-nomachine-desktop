@@ -113,7 +113,7 @@ RUN echo "${NX_USER} ALL=NOPASSWD: /etc/NX/nxserver *" >> /etc/sudoers
 
 # add everyone ([o]ther) permissions to read and write nxserver logfile
 RUN chmod ugo+rwx /usr/NX/var/log/nxserver.log && \
-  chmod -R ugo+rwx /usr/NX/ && \
+  # chmod -R ugo+rwx /usr/NX/ && \
   # special treatment for server.lic file (which has to 
   # have 0400 permissions or else nxserver will fail to start)
   chmod 400 /usr/NX/etc/server.lic
