@@ -34,9 +34,11 @@ ENV LANGUAGE=en_US
 # set up user account
 ENV NX_USER=nomachine
 ENV NX_PASSWORD=nomachine
+ENV NX_UID=431
+ENV NX_GID=433
 
-RUN groupadd -r $NX_USER -g 433 && \
-  useradd -u 431 -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
+RUN groupadd -r $NX_USER -g $NX_GID && \
+  useradd -u $NX_UID -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
   adduser $NX_USER sudo && \
   mkdir /home/$NX_USER && \
   chown -R $NX_USER:$NX_USER /home/$NX_USER && \
