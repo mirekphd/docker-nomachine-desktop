@@ -30,6 +30,19 @@ ENV LANG en_US.UTF-8
 # ENV LANGUAGE=en_IE
 ENV LANGUAGE=en_US
 
+
+# set up user account
+ENV NX_USER=nomachine
+ENV NX_PASSWORD=nomachine
+
+RUN groupadd -r $NX_USER -g 433 && \
+  useradd -u 431 -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
+  adduser $NX_USER sudo && \
+  mkdir /home/$NX_USER && \
+  chown -R $NX_USER:$NX_USER /home/$NX_USER && \
+  echo $NX_USER':'$NX_PASSWORD | chpasswd
+
+
 #RUN apt-get install -y ubuntu-gnome-desktop
 #RUN apt-get install -y kubuntu-full kubuntu-restricted-addons kubuntu-restricted-extras
 RUN apt-get install -y lubuntu-desktop lubuntu-restricted-addons lubuntu-restricted-extras
@@ -92,18 +105,6 @@ RUN python3 -mpip install xgboost
 
 # replace the default desktop used by NoMachine with the preferred (lightweight) desktop
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
-
-
-# set up user account
-ENV NX_USER=nomachine
-ENV NX_PASSWORD=nomachine
-
-RUN groupadd -r $NX_USER -g 433 && \
-  useradd -u 431 -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
-  adduser $NX_USER sudo && \
-  mkdir /home/$NX_USER && \
-  chown -R $NX_USER:$NX_USER /home/$NX_USER && \
-  echo $NX_USER':'$NX_PASSWORD | chpasswd
 
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
