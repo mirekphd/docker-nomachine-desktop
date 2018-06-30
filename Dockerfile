@@ -143,6 +143,9 @@ RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc
   # add also nx_user to sudoers file but only for nxserver log monitoring
   echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail -f /usr/NX/var/log/nxserver.log" >> /etc/sudoers
 
+# add everyone ([o]ther) permissions to read and write to nodes.db.lock file
+RUN chmod ugo+rw /usr/NX/etc/nodes.db.lock
+
 # # add everyone ([o]ther) permissions to read and write nxserver logfile
 # RUN chmod ugo+rwx /usr/NX/var/log/nxserver.log && \
 #   # chmod -R ugo+rwx /usr/NX/ && \
