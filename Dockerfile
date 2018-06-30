@@ -111,6 +111,9 @@ RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"'
 # add nx_user to sudoers file but only for (all) operations on the nxserver service
 RUN echo "${NX_USER} ALL=NOPASSWD: /etc/NX/nxserver *" >> /etc/sudoers
 
+# add everyone ([o]ther) permissions to read and write nxserver logfile
+RUN chmod o+rw /usr/NX/var/log/nxserver.log
+
 # use environment variables USER and PASSWORD (passed by docker run -e) 
 # to create a priviledged user account, and set it up for use by SSH and NoMachine;
 # note that ADD is executed by the host, not the container (unlike RUN)
