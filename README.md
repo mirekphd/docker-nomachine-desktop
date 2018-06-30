@@ -34,7 +34,7 @@ docker pull mirekphd/docker-nomachine-desktop
 
 # Creating a new image container and executing the container
 ```
-docker run -d --rm -p 4001:4000 -p 23:22 --memory-reservation 8G --name docker-nomachine-desktop -e PASSWORD=test -e USER=test --cap-add=SYS_PTRACE --cap-add=sys_nice mirekphd/docker-nomachine-desktop
+docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-nomachine-desktop -e PASSWORD=nomachine -e USER=nomachine --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
 ```
 ## Used docker run options
 - the -d option will run the container in the background (returning control to the shell at the cost of hiding errors messages displayed inside the container)
@@ -55,13 +55,13 @@ docker run -d --rm -p 4001:4000 -p 23:22 --memory-reservation 8G --name docker-n
 
 ## SSH / MobaXterm (command-line tools only)
 - IP: localhost
-- port: 23 (as defined by EXPOSE in the Dockerfile)
-- user: test 
-- password: test 
+- port: 22 (as defined by EXPOSE in the Dockerfile)
+- user: nomachine 
+- password: nomachine
 - (note that all connection details except the IP can be changed in the Dockerfile)
 - example connection:
 ```
-ssh test@localhost -p 23	
+ssh test@localhost -p 22	
 ```
 
 ## Directly via docker exec command (command-line tools only)
@@ -76,9 +76,9 @@ docker exec -it docker-nomachine-desktop bash
 
 ### connection details
 - IP: localhost
-- port: 4001 (as defined by EXPOSE in the Dockerfile)
-- user: test
-- password: test
+- port: 4000 (as defined by EXPOSE in the Dockerfile)
+- user: nomachine
+- password: nomachine
 - protocol: NX
 - (note that all connection details except the IP can be changed in the Dockerfile)
 
