@@ -87,7 +87,8 @@ RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qts
   pip install -y spyder
 
 # PyCharm CE
-RUN add-apt-repository ppa:mystic-mirage/pycharm
+RUN apt-get install -y software-properties-common && \
+  add-apt-repository -y ppa:mystic-mirage/pycharm
 
 RUN apt-get update -y && \ 
   apt-get install -y pycharm-community
