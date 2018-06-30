@@ -93,6 +93,19 @@ RUN python3 -mpip install xgboost
 # replace the default desktop used by NoMachine with the preferred (lightweight) desktop
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 
+
+# set up user account
+ENV USER=nomachine
+ENV PASSWORD=nomachine
+
+RUN groupadd -r $USER -g 433 && \
+  useradd -u 431 -r -g $USER -d /home/$USER -s /bin/bash -c "$USER" $USER && \
+  adduser $USER sudo && \
+  mkdir /home/$USER && \
+  chown -R $USER:$USER /home/$USER && \
+  echo $USER':'$PASSWORD | chpasswd
+
+
 # use environment variables USER and PASSWORD (passed by docker run -e) 
 # to create a priviledged user account, and set it up for use by SSH and NoMachine;
 # note that ADD is executed by the host, not the container (unlike RUN)
