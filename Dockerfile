@@ -11,19 +11,19 @@ EXPOSE 22 4000
 RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --purge-unused -y && aptitude clean
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
-# install useful apps
+# install useful system apps
 RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git mc 
+
 # install Open JDK 8 and 9
 RUN apt-get install -y openjdk-8-jdk # openjdk-9-jdk 
 
 RUN add-apt-repository universe
 #RUN add-apt-repository ppa:ubuntubudgie/backports
 # RUN add-apt-repository ppa:webupd8team/tor-browser
-RUN apt-get update -y
+RUN apt-get update -y && apt-get install -y locales && \
+  # RUN localedef -i en_IE -c -f UTF-8 -A /usr/share/locale/locale.alias en_IE.UTF-8
+  localedef --force --inputfile=en_US --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias en_US.UTF-8
 
-RUN apt-get install -y locales
-# RUN localedef -i en_IE -c -f UTF-8 -A /usr/share/locale/locale.alias en_IE.UTF-8
-RUN localedef --force --inputfile=en_US --charmap=UTF-8 --alias-file=/usr/share/locale/locale.alias en_US.UTF-8
 # ENV LANG en_IE.utf8
 ENV LANG en_US.UTF-8
 #ENV LANG="en_IE.UTF-8"
@@ -31,7 +31,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE=en_US
 
 
-# set up user account
+### set up user account
 ENV NX_USER=nomachine
 ENV NX_PASSWORD=nomachine
 ENV NX_UID=1000
@@ -77,9 +77,7 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
 
-### data science IDEs
-
-# - for Python
+### Data science tools for Python
 
 # Spyder3 (latest version, not the old one bundled in with Lubuntu) 
 RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit  
@@ -99,6 +97,18 @@ RUN python3 -mpip install matplotlib
 # make -j4
 RUN python3 -mpip install xgboost
 
+
+
+### Data science tools for R
+
+# RStudio
+ENV RSTUDIO_VER=1.1.453
+
+RUN wget https://download1.rstudio.org/rstudio-xenial-1.1.453-amd64.deb && \
+RUN wget --quiet -O /tmp/rstudio.deb https://download1.rstudio.org/rstudio-xenial-${RSTUDIO_VER}-amd64.deb && \
+        chmod +x /tmp/rstudio.deb && \
+        gdebi -n /tmp/rstudio.deb && \
+        rm -rf /tmp/rstudio.deb
 
 # Cleanup 
 #RUN apt-get autoclean \
