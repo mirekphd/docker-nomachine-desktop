@@ -84,7 +84,7 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 RUN apt-get install -y python3-pip python3-pyqt4 python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebkit && \
   pip3 install --upgrade pip && \
   pip install --upgrade setuptools && \
-  pip install -y spyder
+  pip install spyder
 
 # PyCharm CE
 RUN apt-get install -y software-properties-common && \
