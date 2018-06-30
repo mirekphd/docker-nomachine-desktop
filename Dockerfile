@@ -39,7 +39,7 @@ ENV NX_GID=1000
 
 RUN groupadd -r $NX_USER -g $NX_GID && \
   useradd -u $NX_UID -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
-  adduser $NX_USER sudo && \
+  # adduser $NX_USER sudo && \
   mkdir /home/$NX_USER && \
   chown -R $NX_USER:$NX_USER /home/$NX_USER && \
   echo $NX_USER':'$NX_PASSWORD | chpasswd
