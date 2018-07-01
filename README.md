@@ -46,16 +46,17 @@ docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-n
 - on Ubuntu 16.04 (and later), it is absolutely necessary to enable PTRACE capabilities required by NoMachine, because they are not provided by the default docker AppArmor profile - hence the --cap-add=SYS_PTRACE parameter (see [Build and Deploy NoMachine Desktops and Applications in Docker for Linux](https://www.nomachine.com/DT08M00100&dn=docker)
 
 # Container security
-The container can run as standard user, which you can verify by running it under user set to its UID (1000 by default):
+The container can run as standard user, which you can verify by running it as user (forcing docker to use its default UID of 1000 at run time):
 ```
 docker run ... -u 1000 ...
 ```
 The container user (nomachine) does belong to sudoers, but for very narrowly defined situations. Only server startup and logging had to be executed using paswordless sudo narrowly restricted to these two operations. This can be verified by trying to use sudo on other, generic operations (e.g. sudo apt-get install mc), which will ask for password and then be rejected as not permitted.
 
 # Hardenining container security
-
+Security can be further hardened by restricting its [capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html) to an absolute minimum (which in case of NoMachine turns out to be very wide), and dropping all others (with --cap-drop=all):
 ```
-docker run -d --rm -p 4000:4000 -p 22:22 ...
+docker run -d --rm -p 4000:4000 --name docker-nomachine-desktop -u 1000 --cap-drop=all --cap-add=SYS_PTRACE --cap-add=chown --cap-add=dac_override --cap-add=dac_read_search --cap-add=fowner --cap-add=fsetid --cap-add=kill --cap-add=net_admin --cap-add=setgid --cap-add=setuid --cap-add=sys_admin --cap-add=sys_nice mirekphd/docker-nomachine-desktop:latest
+
 ```
 
 # (Optional) defining login credentials using environment variables
