@@ -45,6 +45,13 @@ docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-n
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
 - on Ubuntu 16.04 (and later), it is absolutely necessary to enable PTRACE capabilities required by NoMachine, because they are not provided by the default docker AppArmor profile - hence the --cap-add=SYS_PTRACE parameter (see [Build and Deploy NoMachine Desktops and Applications in Docker for Linux](https://www.nomachine.com/DT08M00100&dn=docker)
 
+# Container security
+The container can run as standard user, which you can verify by running it under user set to its UID (1000 by default):
+```
+docker run ... -u 1000 ...
+```
+The container user (nomachine) does belong to sudoers, but for very narrowly defined situations. Only server startup and logging had to be executed using paswordless sudo narrowly restricted to these two operations. This can be verified by trying to use sudo on other, generic operations (e.g. sudo apt-get install mc), which will ask for password and then be rejected as not permitted.
+
 # Hardenining container security
 
 ```
