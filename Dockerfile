@@ -92,7 +92,8 @@ RUN pip install xgboost
 ARG R_BASE_VER=3.5.0
 
 # add to sources lists Michael Rutter's Launchpad repo with R-base 3.5 (RRutter v3.5)
-RUN echo "deb [trusted=yes] http://ppa.launchpad.net/marutter/rrutter3.5/ubuntu xenial main" > /etc/apt/sources.list.d/rrutter3.5_xenial.list
+# RUN echo "deb [trusted=yes] http://ppa.launchpad.net/marutter/rrutter3.5/ubuntu xenial main" > /etc/apt/sources.list.d/rrutter3.5_xenial.list
+RUN echo "deb [trusted=yes] http://ppa.launchpad.net/marutter/rrutter3.5/ubuntu bionic main" > /etc/apt/sources.list.d/rrutter3.5_xenial.list
 
 # add Michael Rutters key
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
