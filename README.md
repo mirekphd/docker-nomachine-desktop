@@ -67,23 +67,6 @@ docker run -d --rm -p 4000:4000 --name docker-nomachine-desktop -u 1000 --cap-dr
 
 # Connecting to the container (from the server ssh or NoMachine client)
 
-## SSH / MobaXterm (command-line tools only)
-- IP: localhost
-- port: 22 (as defined by EXPOSE in the Dockerfile)
-- user: nomachine 
-- password: nomachine
-- (note that all connection details except the IP can be changed in the Dockerfile)
-- example connection:
-```
-ssh nomachine@localhost -p 22	
-```
-
-## Directly via docker exec command (command-line tools only)
-(-it = interactive terminal)
-```
-docker exec -it docker-nomachine-desktop bash
-```
-
 ## NoMachine (all tools: command-line and GUI)
 
 ### client installation
@@ -97,17 +80,43 @@ docker exec -it docker-nomachine-desktop bash
 - protocol: NX
 - (note that all connection details except the IP can be changed in the Dockerfile)
 
+## SSH client, e.g. MobaXterm (command-line tools only)
+- IP: localhost
+- port: 22 (as defined by EXPOSE in the Dockerfile)
+- user: nomachine 
+- password: nomachine
+- (note that all connection details except the IP can be changed in the Dockerfile)
+- example connection:
+```
+ssh nomachine@localhost -p 22	
+```
+
+## Direct connection via docker exec command
+```
+docker exec -it docker-nomachine-desktop bash
+```
+Note: -it = interactive terminal.
+
 
 # Cleaning up after work
 
-- find out the names of all running containers:
+- find out the current name of the running containers 
+(if you used --name, then this is not needed, because name is known):
 ```
-docker ps
+docker ps -a
 ```
-- stop the unwanted containers:
+Note: the -a option will list also the stopped (and failed) containers.
+
+- stop the container:
 ```
 docker stop docker-nomachine-desktop
 ```
+
+- if a subsequent docker run attempt fails, the container has to be removed with force (-f):
+```
+docker rm -f docker-nomachine-desktop
+```
+
 - if the -rm option was not supplied to _docker run_, we need to remove all unwanted objects: containers, networks, images and optionally (_--volumes_) also volumes (caution: they may contain unsaved data):
 ```
 docker system prune [--volumes]
