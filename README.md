@@ -32,7 +32,7 @@ docker push mirekphd/docker-nomachine-desktop
 docker pull mirekphd/docker-nomachine-desktop
 ```
 
-# Creating a new image container and executing the container
+# Executing the container
 ```
 docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-nomachine-desktop -e PASSWORD=nomachine -e USER=nomachine --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
 ```
@@ -45,7 +45,13 @@ docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-n
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
 - on Ubuntu 16.04 (and later), it is absolutely necessary to enable PTRACE capabilities required by NoMachine, because they are not provided by the default docker AppArmor profile - hence the --cap-add=SYS_PTRACE parameter (see [Build and Deploy NoMachine Desktops and Applications in Docker for Linux](https://www.nomachine.com/DT08M00100&dn=docker)
 
-# Defining login credentials using environment variables
+# Hardenining container security
+
+```
+docker run -d --rm -p 4000:4000 -p 22:22 ...
+```
+
+# (Optional) defining login credentials using environment variables
 - the -e option of _docker run_ is used to define container's environmental variables USER and PASSWORD 
 - USER: the SSH/NoMachine user login
 - PASSWORD: the SSH/NoMachine password
@@ -61,10 +67,11 @@ docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-n
 - (note that all connection details except the IP can be changed in the Dockerfile)
 - example connection:
 ```
-ssh test@localhost -p 22	
+ssh nomachine@localhost -p 22	
 ```
 
 ## Directly via docker exec command (command-line tools only)
+(-it = interactive terminal)
 ```
 docker exec -it docker-nomachine-desktop bash
 ```
