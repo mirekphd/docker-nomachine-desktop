@@ -149,7 +149,7 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder and empty logfile inside the user home folder)
 COPY nxserver.log /tmp
-RUN chown $NX_USER:$NX_GID /tmp/nxserver.log
+# RUN chown $NX_USER:$NX_GID /tmp/nxserver.log
 # RUN sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_NODE_CFG && \
 # 	sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_SRV_CFG
 
