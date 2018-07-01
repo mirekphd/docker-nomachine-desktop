@@ -7,7 +7,6 @@ EXPOSE 22 4000
 # EXPOSE 23 4001
 
 
-
 RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --purge-unused -y && aptitude clean
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
@@ -41,7 +40,7 @@ RUN groupadd -r $NX_USER -g $NX_GID && \
   useradd -u $NX_UID -r -g $NX_USER -d /home/$NX_USER -s /bin/bash -c "NX_$USER" $NX_USER && \
   # adduser $NX_USER sudo && \
   mkdir /home/$NX_USER && \
-  chown -R $NX_USER:$NX_USER /home/$NX_USER && \
+  chown -R $NX_USER:$NX_GID /home/$NX_USER && \
   echo $NX_USER':'$NX_PASSWORD | chpasswd
 
 
@@ -133,13 +132,21 @@ ENV NOMACHINE_MD5 210bc249ec9940721a1413392eee06fe
 RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
-# replace the default desktop used by NoMachine with the preferred (lightweight) desktop
+# edit the Nomachine node configuration
+# (note we edit the node config file [i]n place (sed -i)
+# and replace [c]omplete lines using "c\" switch):
+# - replace the default desktop command (DefaultDesktopCommand) used by NoMachine with the preferred (lightweight) desktop
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
+# - replace the location of the nxserver log file, because the default one required sudo 
+# (but first create a new folder for the log inside the user home folder)
+RUN mkdir /home/$NX_USER/NX/log && \
+	chown -R $NX_USER:$NX_GID /home/$NX_USER/NX/log && \ 
+	sed -i '/SystemLogFile/c\SystemLogFile "/home/$NX_USER/NX/log"' /usr/NX/etc/node.cfg
 
 # add nx_user to sudoers file but only for (all) operations on the nxserver service
 RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
-  # add also nx_user to sudoers file but only for nxserver log monitoring
-  echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail -f /usr/NX/var/log/nxserver.log" >> /etc/sudoers
+	# add also nx_user to sudoers file but only for nxserver log monitoring
+	echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail -f /usr/NX/var/log/nxserver.log" >> /etc/sudoers
 
 # # add everyone ([o]ther) permissions to read and write to nodes.db.lock file
 # RUN chmod ugo+rwx /usr/NX/etc/nodes.db.lock
