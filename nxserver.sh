@@ -11,7 +11,6 @@
 sudo /etc/NX/nxserver --startup
 
 # start logging (essential to run the server, even in detached mode)
-# sudo tail -f /usr/NX/var/log/nxserver.log
-# tail -f /home/nomachine/log/nxserver.log
-tail -f /tmp/nxserver.log
+sudo tail -f /usr/NX/var/log/nxserver.log
+# tail -f /tmp/nxserver.log
 
