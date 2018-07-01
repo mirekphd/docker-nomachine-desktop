@@ -132,20 +132,28 @@ ENV NOMACHINE_MD5 210bc249ec9940721a1413392eee06fe
 RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
-# edit the Nomachine node configuration
-# define the location of the config file
-ARG NX_CFG=/usr/NX/etc/node.cfg
-# (note we edit the node config file [i]n place (sed -i)
-# and replace [c]omplete lines using "c\" switch):
+# edit the Nomachine node configuration;
+# caution: both node.cfg and server.cfg files 
+# must be edited for the changes to take effect;
+# define the location and names of the config files
+ARG NX_NODE_CFG=/usr/NX/etc/node.cfg
+ARG NX_SRV_CFG=/usr/NX/etc/server.cfg
+
+# (note we edit the config files *[i]n place* (hence sed -i)
+# and replace *[c]omplete* lines using "c\" switch):
+
 # - replace the default desktop command (DefaultDesktopCommand) used by NoMachine with the preferred (lightweight) desktop
-RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_CFG
+RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_NODE_CFG
+RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_SRV_CFG
+
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder and emptu logfile inside the user home folder)
 ARG LOG_PATH=/home/${NX_USER}/NX/log
 RUN mkdir -p $LOG_PATH && \
-        touch ${LOG_PATH}/nxserver.log && \
-	chown -R $NX_USER:$NX_GID $LOG_PATH && \ 
-	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_CFG
+	touch ${LOG_PATH}/nxserver.log && \
+	chown -R $NX_USER:$NX_GID $LOG_PATH
+RUN sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_NODE_CFG && \
+	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_SRV_CFG
 
 # add nx_user to sudoers file but only for startup of the nxserver service
 RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
