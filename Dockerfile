@@ -133,31 +133,24 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 && echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
 # edit the Nomachine node configuration
+# define the location of the config file
+ARG NX_CFG=/usr/NX/etc/node.cfg
 # (note we edit the node config file [i]n place (sed -i)
 # and replace [c]omplete lines using "c\" switch):
 # - replace the default desktop command (DefaultDesktopCommand) used by NoMachine with the preferred (lightweight) desktop
-RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
+RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_CFG
 # - replace the location of the nxserver log file, because the default one required sudo 
-# (but first create a new folder for the log inside the user home folder)
-RUN mkdir -p /home/$NX_USER/NX/log && \
-	chown -R $NX_USER:$NX_GID /home/$NX_USER/NX/log && \ 
-	sed -i '/SystemLogFile/c\SystemLogFile /home/${NX_USER}/NX/log' /usr/NX/etc/node.cfg
+# (but first create a new folder and emptu logfile inside the user home folder)
+ARG LOG_PATH=/home/${NX_USER}/NX/log
+RUN mkdir -p $LOG_PATH && \
+        touch ${LOG_PATH}/nxserver.log && \
+	chown -R $NX_USER:$NX_GID $LOG_PATH && \ 
+	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_CFG
 
-# add nx_user to sudoers file but only for (all) operations on the nxserver service
+# add nx_user to sudoers file but only for startup of the nxserver service
 RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
 	# add also nx_user to sudoers file but only for nxserver log monitoring
 	echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /usr/bin/tail -f /usr/NX/var/log/nxserver.log" >> /etc/sudoers
-
-# # add everyone ([o]ther) permissions to read and write to nodes.db.lock file
-# RUN chmod ugo+rwx /usr/NX/etc/nodes.db.lock
-
-# # add everyone ([o]ther) permissions to read and write nxserver logfile
-# RUN chmod ugo+rwx /usr/NX/var/log/nxserver.log && \
-#   # chmod -R ugo+rwx /usr/NX/ && \
-#   # special treatment for server.lic file (which has to 
-#   # have 0400 permissions or else nxserver will fail to start)
-#   chmod 400 /usr/NX/etc/server.lic
-
 
 ### Cleanup
 #RUN apt-get autoclean \
