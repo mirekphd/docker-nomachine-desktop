@@ -148,17 +148,15 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder and empty logfile inside the user home folder)
-ARG LOG_FOLDER=/home/${NX_USER}
-# RUN mkdir -p ${LOG_FOLDER}
-COPY nxserver.log ${LOG_FOLDER}/nxserver.log
-# RUN chown -R $NX_USER:$NX_GID ${LOG_FOLDER}
+COPY nxserver.log /tmp && \
+	RUN chown $NX_USER:$NX_GID /tmp/nxserver.log
 # RUN sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_NODE_CFG && \
 # 	sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_SRV_CFG
 
-# instead of blind editing using sed, simply edit the config files
-# outside the container (in git), and then copy them to the container
-COPY node.cfg /usr/NX/etc/node.cfg
-COPY server.cfg /usr/NX/etc/server.cfg
+# # instead of blind editing using sed, simply edit the config files
+# # outside the container (in git), and then copy them to the container
+# COPY node.cfg /usr/NX/etc/node.cfg
+# COPY server.cfg /usr/NX/etc/server.cfg
 
 # add nx_user to sudoers file but only for startup of the nxserver service
 RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
