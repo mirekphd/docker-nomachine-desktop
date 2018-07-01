@@ -34,14 +34,13 @@ docker pull mirekphd/docker-nomachine-desktop
 
 # Executing the container
 ```
-docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-nomachine-desktop -e PASSWORD=nomachine -e USER=nomachine --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
+docker run -d --rm -p 4000:4000 -p 22:22 --memory-reservation 8G --name docker-nomachine-desktop -v /home/nomachine:/home/nomachine --cap-add=SYS_PTRACE mirekphd/docker-nomachine-desktop
 ```
 ## Used docker run options
 - the -d option will run the container in the background (returning control to the shell at the cost of hiding errors messages displayed inside the container)
 - the -rm option will remove the docker image and other objects to release memory after the container is stopped (caution: potential data loss of the data stored inside the container)
 - the -p option sets up port forwarding: contenerized SSH and NX servers use their standard ports, but non-standard ports are exposed outside the contained (here incremented by one); these exposed ports were defined in the Dockerfile
 - the --memory-reservation option specifies the soft limit on the memory use, an indication of intended memory usage rather than a maximum cap (the container is still allowed to use as much memory as it needs); note that this can be later changed using _docker update_
-- the -e option defines environmental variables USER and PASSWORD (USER: the SSH/NoMachine user login, PASSWORD: the SSH/NoMachine password)
 - the --cap-add option grants additional priviledges to the container and manages quotas (e.g. memory and CPU quotas, CPU pinning), see [Limit a container's resources](https://docs.docker.com/config/containers/resource_constraints/) for details
 - on Ubuntu 16.04 (and later), it is absolutely necessary to enable PTRACE capabilities required by NoMachine, because they are not provided by the default docker AppArmor profile - hence the --cap-add=SYS_PTRACE parameter (see [Build and Deploy NoMachine Desktops and Applications in Docker for Linux](https://www.nomachine.com/DT08M00100&dn=docker)
 
@@ -63,7 +62,7 @@ docker run -d --rm -p 4000:4000 --name docker-nomachine-desktop -u 1000 --cap-dr
 - the -e option of _docker run_ is used to define container's environmental variables USER and PASSWORD 
 - USER: the SSH/NoMachine user login
 - PASSWORD: the SSH/NoMachine password
-- these credentials are needed only to allow an already authorised server user to execute applications inside the Docker container, so passing password in clear text - as argument of _docker run_ (as described above) is acceptable
+- these credentials are needed only to allow an already authorised server user to execute applications inside the Docker container, so passing password in clear text - as argument of _docker run_ (e.g. docker run .. -e USER=nomachine) is acceptable
 
 # Connecting to the container (from the server ssh or NoMachine client)
 
