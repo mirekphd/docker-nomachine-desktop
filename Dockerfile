@@ -159,3 +159,7 @@ RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc
 ADD nxserver.sh /
 
 ENTRYPOINT ["/nxserver.sh"]
+
+# Switch back to unpriviledged user (using its UID, not name) 
+# to avoid accidental container runs as root
+USER $NX_UID
