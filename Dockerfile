@@ -148,12 +148,12 @@ RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"'
 
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder and emptu logfile inside the user home folder)
-ARG LOG_PATH=/home/${NX_USER}/NX/log/
-RUN /bin/bash -c "mkdir -p $LOG_PATH"
-COPY nxserver.log ${LOG_PATH}
-RUN chown -R $NX_USER:$NX_GID $LOG_PATH
-RUN sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_NODE_CFG && \
-	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_SRV_CFG
+ARG LOG_FOLDER=/home/$NX_USER
+# RUN mkdir -p $LOG_FOLDER
+COPY nxserver.log $LOG_FOLDER
+RUN chown -R $NX_USER:$NX_GID $LOG_FOLDER
+RUN sed -i '/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}' $NX_NODE_CFG && \
+	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}' $NX_SRV_CFG
 
 # add nx_user to sudoers file but only for startup of the nxserver service
 RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc/sudoers && \
