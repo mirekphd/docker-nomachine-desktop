@@ -148,10 +148,10 @@ RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"'
 
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder and emptu logfile inside the user home folder)
-ARG LOG_PATH=/home/${NX_USER}/NX/log
-RUN mkdir -p $LOG_PATH && \
-	touch ${LOG_PATH}/nxserver.log && \
-	chown -R $NX_USER:$NX_GID $LOG_PATH
+ARG LOG_PATH=/home/${NX_USER}/NX/log/
+RUN mkdir -p $LOG_PATH 
+COPY nxserver.log ${LOG_PATH}
+RUN chown -R $NX_USER:$NX_GID $LOG_PATH
 RUN sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_NODE_CFG && \
 	sed -i '/SystemLogFile/c\SystemLogFile ${LOG_PATH}' $NX_SRV_CFG
 
