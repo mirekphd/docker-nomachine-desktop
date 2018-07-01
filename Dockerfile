@@ -146,12 +146,12 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 # RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_NODE_CFG
 # RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' $NX_SRV_CFG
 
-# # - replace the location of the nxserver log file, because the default one required sudo 
-# # (but first create a new folder and empty logfile inside the user home folder)
-# ARG LOG_FOLDER=/home/$NX_USER/log/
-# RUN mkdir -p $LOG_FOLDER
-# COPY nxserver.log ${LOG_FOLDER}
-# RUN chown -R $NX_USER:$NX_GID $LOG_FOLDER
+# - replace the location of the nxserver log file, because the default one required sudo 
+# (but first create a new folder and empty logfile inside the user home folder)
+ARG LOG_FOLDER=/home/$NX_USER/log/
+RUN mkdir -p $LOG_FOLDER
+COPY nxserver.log ${LOG_FOLDER}
+RUN chown -R $NX_USER:$NX_GID $LOG_FOLDER
 # RUN sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_NODE_CFG && \
 # 	sed -i "/SystemLogFile/c\SystemLogFile ${LOG_FOLDER}nxserver.log" $NX_SRV_CFG
 
