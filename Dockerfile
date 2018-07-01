@@ -3,9 +3,6 @@ FROM ubuntu:16.04
 MAINTAINER Mirek
 
 ENV DEBIAN_FRONTEND=noninteractive
-EXPOSE 22 4000
-# EXPOSE 23 4001
-
 
 RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --purge-unused -y && aptitude clean
 RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
@@ -165,6 +162,11 @@ RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc
 #RUN apt-get autoclean \
 #    && apt-get autoremove \
 #    && rm -rf /var/lib/apt/lists/*
+
+# listen to NX port (4000 by default)
+# EXPOSE 22 4000
+EXPOSE 4000
+# EXPOSE 23 4001
 
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
