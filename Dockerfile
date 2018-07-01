@@ -61,21 +61,6 @@ RUN apt-get install -y lubuntu-desktop lubuntu-restricted-addons lubuntu-restric
 #http://docs.aws.amazon.com/directoryservice/latest/admin-guide/join_linux_instance.html
 #RUN apt-get -y install sssd realmd krb5-user samba-common
 
-# Goto https://www.nomachine.com/download/download&id=10 and change for the latest NOMACHINE_PACKAGE_NAME and MD5 shown in that link to get the latest version.
-# ENV NOMACHINE_PACKAGE_NAME nomachine_5.3.12_10_amd64.deb
-# ENV NOMACHINE_MD5 78f25ceb145b1e6972bb6ad2c69bf689
-# ENV NOMACHINE_PACKAGE_NAME nomachine_6.0.78_1_amd64.deb
-# ENV NOMACHINE_BUILD 6.0
-# ENV NOMACHINE_MD5 3645673090788ea0b2a3f664bb71a7dd
-ENV NOMACHINE_PACKAGE_NAME nomachine_6.2.4_1_amd64.deb
-ENV NOMACHINE_BUILD 6.2
-ENV NOMACHINE_MD5 210bc249ec9940721a1413392eee06fe
-
-
-# Install nomachine, change password and username to whatever you want here
-RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
-&& echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
-
 
 ### Data science tools for Python
 
@@ -130,10 +115,23 @@ RUN wget --quiet -O /tmp/rstudio.deb https://download1.rstudio.org/rstudio-xenia
         gdebi -n /tmp/rstudio.deb && \
         rm -rf /tmp/rstudio.deb
 
-# Cleanup 
-#RUN apt-get autoclean \
-#    && apt-get autoremove \
-#    && rm -rf /var/lib/apt/lists/*
+
+### NoMachine ###
+
+# Goto https://www.nomachine.com/download/download&id=10 and update the latest 
+# NOMACHINE_PACKAGE_NAME and MD5 sum:
+# ENV NOMACHINE_PACKAGE_NAME nomachine_5.3.12_10_amd64.deb
+# ENV NOMACHINE_MD5 78f25ceb145b1e6972bb6ad2c69bf689
+# ENV NOMACHINE_PACKAGE_NAME nomachine_6.0.78_1_amd64.deb
+# ENV NOMACHINE_BUILD 6.0
+# ENV NOMACHINE_MD5 3645673090788ea0b2a3f664bb71a7dd
+ENV NOMACHINE_PACKAGE_NAME nomachine_6.2.4_1_amd64.deb
+ENV NOMACHINE_BUILD 6.2
+ENV NOMACHINE_MD5 210bc249ec9940721a1413392eee06fe
+
+# Install nomachine, change password and username to whatever you want here
+RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/${NOMACHINE_PACKAGE_NAME}" -o nomachine.deb \
+&& echo "${NOMACHINE_MD5} *nomachine.deb" | md5sum -c - && dpkg -i nomachine.deb
 
 # replace the default desktop used by NoMachine with the preferred (lightweight) desktop
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
@@ -152,6 +150,13 @@ RUN echo "${NX_USER} ALL=(ALL:ALL) NOPASSWD: /etc/NX/nxserver --startup" >> /etc
 #   # special treatment for server.lic file (which has to 
 #   # have 0400 permissions or else nxserver will fail to start)
 #   chmod 400 /usr/NX/etc/server.lic
+
+
+### Cleanup
+#RUN apt-get autoclean \
+#    && apt-get autoremove \
+#    && rm -rf /var/lib/apt/lists/*
+
 
 # use environment variables USER and PASSWORD (passed by docker run -e) 
 # to create a priviledged user account, and set it up for use by SSH and NoMachine;
