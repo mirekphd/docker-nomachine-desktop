@@ -139,7 +139,7 @@ RUN curl -fSL "http://download.nomachine.com/download/${NOMACHINE_BUILD}/Linux/$
 RUN sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startlxde"' /usr/NX/etc/node.cfg
 # - replace the location of the nxserver log file, because the default one required sudo 
 # (but first create a new folder for the log inside the user home folder)
-RUN mkdir /home/$NX_USER/NX/log && \
+RUN mkdir -p /home/$NX_USER/NX/log && \
 	chown -R $NX_USER:$NX_GID /home/$NX_USER/NX/log && \ 
 	sed -i '/SystemLogFile/c\SystemLogFile "/home/$NX_USER/NX/log"' /usr/NX/etc/node.cfg
 
