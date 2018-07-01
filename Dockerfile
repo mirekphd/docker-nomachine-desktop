@@ -7,7 +7,7 @@ MAINTAINER Mirek
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y && apt-get install -y aptitude && aptitude dist-upgrade --purge-unused -y && aptitude clean
-RUN apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
+RUN apt-get update && apt-get install -y software-properties-common python-software-properties python3-software-properties sudo
 
 # install useful system apps
 RUN apt-get install -y nano htop vim xterm ssh openssh-server curl wget git mc 
